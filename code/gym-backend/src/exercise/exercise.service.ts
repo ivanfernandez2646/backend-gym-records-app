@@ -1,0 +1,51 @@
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { CreateExerciseDTO, UpdateExerciseDTO } from 'src/dto/exercise.dto';
+import { Exercise, ExerciseDocument } from 'src/schemas/exercise.schema';
+import { Mark, MarkDocument } from 'src/schemas/mark.schema';
+
+//TODO: On delete, check if id exist before
+//TODO: On update, check if id exist before
+@Injectable()
+export class ExerciseService {
+  constructor(
+    @InjectModel(Exercise.name) private exerciseModel: Model<ExerciseDocument>,
+    @InjectModel(Mark.name) private markModel: Model<MarkDocument>
+  ) {}
+
+  async findAll(): Promise<Exercise[]> {
+    return await this.exerciseModel.find();
+  }
+
+  async findOne(id: string): Promise<Exercise> {
+    return await this.exerciseModel.findById(id);
+  }
+
+  async create(createExerciseDTO: CreateExerciseDTO): Promise<Exercise> {
+    const createExercise: ExerciseDocument = new this.exerciseModel(
+      createExerciseDTO
+    );
+    return await createExercise.save();
+  }
+
+  async update(
+    id: string,
+    updateExerciseDTO: UpdateExerciseDTO
+  ): Promise<Exercise> {
+    return await this.exerciseModel.findByIdAndUpdate(id, updateExerciseDTO, {
+      new: true,
+    });
+  }
+
+  async delete(id: string): Promise<boolean> {
+    try {
+      const deleteExercise: ExerciseDocument =
+        await this.exerciseModel.findById(id);
+      await deleteExercise.deleteOne();
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
