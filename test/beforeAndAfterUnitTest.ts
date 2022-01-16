@@ -20,8 +20,10 @@ import { UserController } from '../src/user/user.controller';
 import { UserService } from '../src/user/user.service';
 import { closeMongoD, initMongoD } from './mongod';
 
+let testingModule: TestingModule;
+
 export const beforeAllUnitTest = async (): Promise<TestingModule> => {
-  const module: TestingModule = await Test.createTestingModule({
+  testingModule = await Test.createTestingModule({
     imports: [
       initMongoD({ useCreateIndex: true, useFindAndModify: false }),
       MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
@@ -53,9 +55,12 @@ export const beforeAllUnitTest = async (): Promise<TestingModule> => {
       PlanAttachmentService,
     ],
   }).compile();
-  return module;
+  return testingModule;
 };
 
 export const afterAllUnitTest = async (): Promise<void> => {
   await closeMongoD();
+  if (testingModule) {
+    await testingModule.close();
+  }
 };

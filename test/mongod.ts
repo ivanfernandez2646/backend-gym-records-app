@@ -10,7 +10,7 @@ export const initMongoD = (options?: MongooseModuleOptions) => {
       const uri = mongod.getUri();
       return {
         uri: uri,
-        options,
+        ...options,
       };
     },
   });

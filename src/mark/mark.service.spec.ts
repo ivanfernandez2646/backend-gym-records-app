@@ -1,5 +1,8 @@
 import { TestingModule } from '@nestjs/testing';
-import { afterAllUnitTest, beforeAllUnitTest } from '../../test/beforeUnitTest';
+import {
+  afterAllUnitTest,
+  beforeAllUnitTest,
+} from '../../test/beforeAndAfterUnitTest';
 import { MarkService } from './mark.service';
 
 describe('MarkService', () => {

@@ -1,5 +1,8 @@
 import { TestingModule } from '@nestjs/testing';
-import { afterAllUnitTest, beforeAllUnitTest } from '../../test/beforeUnitTest';
+import {
+  afterAllUnitTest,
+  beforeAllUnitTest,
+} from '../../test/beforeAndAfterUnitTest';
 import { ConfigController } from './config.controller';
 
 describe('ConfigController', () => {
