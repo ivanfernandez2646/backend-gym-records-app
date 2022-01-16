@@ -14,8 +14,8 @@ import { PlanAttachmentService } from './plan-attachment.service';
   imports: [
     MongooseModule.forFeature([
       { name: PlanAttachment.name, schema: PlanAttachmentSchema },
+      { name: User.name, schema: UserSchema },
     ]),
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     MulterModule.register({
       storage: memoryStorage(),
     }),

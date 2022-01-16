@@ -8,11 +8,11 @@ import { MarkService } from './mark.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Mark.name, schema: MarkSchema }]),
     MongooseModule.forFeature([
+      { name: Mark.name, schema: MarkSchema },
       { name: Exercise.name, schema: ExerciseSchema },
+      { name: User.name, schema: UserSchema },
     ]),
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   controllers: [MarkController],
   providers: [MarkService],

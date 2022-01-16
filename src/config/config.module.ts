@@ -7,8 +7,8 @@ import { ConfigService } from './config.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Config.name, schema: ConfigSchema }]),
     MongooseModule.forFeature([
+      { name: Config.name, schema: ConfigSchema },
       { name: Exercise.name, schema: ExerciseSchema },
     ]),
   ],
